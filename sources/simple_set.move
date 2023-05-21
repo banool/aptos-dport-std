@@ -21,7 +21,7 @@ module dport_std::simple_set {
     }
 
     /// Create an empty set.
-    public fun empty<Element: store + copy + drop>(): SimpleSet<Element> {
+    public fun create<Element: store + copy + drop>(): SimpleSet<Element> {
         SimpleSet {
             data: vector::empty<Element>(),
         }
@@ -57,7 +57,7 @@ module dport_std::simple_set {
     }
 
     /// Destroy the set. Aborts if set is not empty.
-    public fun destroy_empty<Element>(set: SimpleSet<Element>) {
+    public inline fun destroy_empty<Element>(set: SimpleSet<Element>) {
         let SimpleSet { data } = set;
         vector::destroy_empty(data);
     }
@@ -118,7 +118,7 @@ module dport_std::simple_set {
 
     #[test]
     public fun insert_remove_many() {
-        let set = empty<u64>();
+        let set = create<u64>();
 
         assert!(length(&set) == 0, 0);
         assert!(!contains(&set, &3), 0);
@@ -141,7 +141,7 @@ module dport_std::simple_set {
 
     #[test]
     public fun insert_twice() {
-        let set = empty<u64>();
+        let set = create<u64>();
         assert!(insert(&mut set, 3) == true, 0);
         assert!(insert(&mut set, 3) == false, 0);
 
@@ -151,7 +151,7 @@ module dport_std::simple_set {
 
     #[test]
     public fun remove_twice() {
-        let set = empty<u64>();
+        let set = create<u64>();
         insert(&mut set, 3);
         assert!(remove(&mut set, &3) == true, 0);
         assert!(remove(&mut set, &3) == false, 0);

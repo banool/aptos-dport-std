@@ -4,7 +4,7 @@
 /// 3) A Key can be found within O(N) time
 /// 4) The keys are unsorted.
 /// 5) Adds and removals take O(N) time
-module dport_std::iterable_simple_map {
+module dport_std::simple_map {
     use std::error;
     use std::option;
     use std::vector;
@@ -134,6 +134,13 @@ module dport_std::iterable_simple_map {
         (key, value)
     }
 
+    public fun key_at_idx<Key: store, Value: store>(
+        map: &SimpleMap<Key, Value>,
+        idx: u64
+    ): &Key {
+        &vector::borrow(&map.data, idx).key
+    }
+
     fun find<Key: store, Value: store>(
         map: &SimpleMap<Key, Value>,
         key: &Key,
@@ -148,13 +155,6 @@ module dport_std::iterable_simple_map {
             i = i + 1;
         };
         option::none<u64>()
-    }
-
-    public fun key_at_idx<Key: store, Value: store>(
-        map: &SimpleMap<Key, Value>,
-        idx: u64
-    ): &Key {
-        &vector::borrow(&map.data, idx).key
     }
 
     #[test]
