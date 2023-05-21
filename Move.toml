@@ -1,5 +1,5 @@
 [package]
-name = 'dport_std'
+name = 'DportStdlib'
 version = '1.0.0'
 
 [dependencies.MoveStdlib]
@@ -8,4 +8,4 @@ rev = 'main'
 subdir = 'aptos-move/framework/move-stdlib'
 
 [addresses]
-dport_std = "_"
+dport_std = "0xc6ba429c1c0508ffa4dda73d3f7617dd2b19cc6df2eddfdffb30f8ca44581e3b"
