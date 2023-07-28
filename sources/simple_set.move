@@ -1,6 +1,6 @@
 /// This module provides a solution for small unsorted sets, that is it has the properties that:
 /// 1) Each item must be unique
-/// 2) The items in set are unsorted
+/// 2) The items in the set are unsorted
 /// 3) Insertions and removals take O(n) time
 module dport_std::simple_set {
     use std::error;
@@ -18,6 +18,11 @@ module dport_std::simple_set {
     /// Return the number of keys in the set.
     public fun length<Element>(set: &SimpleSet<Element>): u64 {
         vector::length(&set.data)
+    }
+
+    /// True if the set is empty.
+    public fun is_empty<Element>(set: &SimpleSet<Element>): bool {
+        vector::length(&set.data) == 0
     }
 
     /// Create an empty set.
@@ -63,7 +68,7 @@ module dport_std::simple_set {
     }
 
     /// Insert `key` into the set.
-    /// Return `true` if `key` did not already exist in the set and `false` vice versa.
+    /// Return `true` if `key` did not already exist in the set and `false` otherwise.
     public fun insert<Element: drop>(
         set: &mut SimpleSet<Element>,
         key: Element,
@@ -77,8 +82,8 @@ module dport_std::simple_set {
         }
     }
 
-    /// Remove `key` into the set.
-    /// Return `true` if `key` already existed in the set and `false` vice versa.
+    /// Remove `key` from the set.
+    /// Return `true` if `key` already existed in the set and `false` otherwise.
     public fun remove<Element: drop>(
         set: &mut SimpleSet<Element>,
         key: &Element,
